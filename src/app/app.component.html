@@ -1,0 +1,31 @@
+<header>
+  <div class="overlay">
+    <h1>Angular Trainning</h1>
+  </div>
+</header>
+<div class="listAccount">
+  <app-show
+    [account]="account"
+    [columns]="columns"
+    (mySearch)="search($event)"
+    [page]="page"
+    [loading]="loading"
+    [itemsPerPage]="itemsPerPage"
+    [totalItems]="totalItems"
+    (clickEdit)="openEdit($event)"
+    (clickDelete)="delete($event)"
+    (clickAdd)="openAddAccount()"
+    (clsortByAge)="sortByAge()"
+  ></app-show>
+
+  <div class="addEdit" *ngIf="isOpenEditAccount || isOpenAddAccount">
+    <div class="addEdit-model"></div>
+    <app-edit
+      [selectedAccount]="selectedAccount"
+      (clickCloseForm)="closeForm($event)"
+      (clickSubmit)="saveOrEdit($event)"
+      [isOpenAddAccount]="isOpenAddAccount"
+      [isOpenEditAccount]="isOpenEditAccount"
+    ></app-edit>
+  </div>
+</div>
