@@ -1,0 +1,68 @@
+<table class="table table-striped table-hover">
+  <thead>
+  <tr class="table-dark">
+    <th
+      style="background-color: black!important;"
+      *ngFor="let item of columns"
+      [ngStyle]="{
+            'text-align': item.field == 'action' ? item.textAlign : null
+          }"
+    >
+          <span *ngIf="item.field == 'age'; else Thdefault"
+          >{{ item.label }}&ensp;
+            <i (click)="sortByAge()" class="fas fa-sort"></i
+            ></span>
+      <ng-template #Thdefault>{{ item.label }}</ng-template>
+    </th>
+  </tr>
+
+  <!--fsdfdsfdsfdsf-->
+  </thead>
+  <tbody>
+  <tr
+    *ngFor="
+          let account of account
+            | paginate
+              : {
+                  itemsPerPage: itemsPerPage,
+                  currentPage: page,
+                  totalItems: account.length
+                };
+          let index = index
+        "
+  >
+
+    <td
+      *ngFor="let item of columns"
+      [ngStyle]="{
+            'text-align': item.field == 'action' ? item.textAlign : null
+          }"
+    >
+      <ng-container [ngSwitch]="item.field">
+        <span *ngSwitchDefault>{{ account[item.field] }}</span>
+        <span *ngSwitchCase="'fullname'"
+        >{{ account.firstname }} {{ account.lastname }}</span
+        >
+        <span *ngSwitchCase="'stt'">{{
+          index + 1 + (page - 1) * itemsPerPage
+          }}</span>
+        <span *ngSwitchCase="'action'"
+        ><button
+          type="button"
+          class="btn btn-primary"
+          (click)="openEdit(account)"
+        >Sửa</button
+        >&nbsp;
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="delete(account)"
+              >
+                Xóa
+              </button></span
+        >
+      </ng-container>
+    </td>
+  </tr>
+  </tbody>
+</table>
